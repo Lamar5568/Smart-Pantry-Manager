@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- =====================================================
+             RECIPE NAME
+             ===================================================== -->
+
+        <TextView
+            android:id="@+id/tvRecipeDetailsName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Recipe Name"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:paddingBottom="24dp" />
+
+
+        <!-- =====================================================
+             REQUIRED INGREDIENTS TITLE
+             ===================================================== -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Required Ingredients"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <!-- =====================================================
+             REQUIRED INGREDIENTS
+             ===================================================== -->
+
+        <TextView
+            android:id="@+id/tvRecipeDetailsIngredients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Ingredients"
+            android:textSize="16sp"
+            android:paddingBottom="24dp" />
+
+
+        <!-- =====================================================
+             COOKING INSTRUCTIONS TITLE
+             ===================================================== -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cooking Instructions"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <!-- =====================================================
+             COOKING INSTRUCTIONS
+             ===================================================== -->
+
+        <TextView
+            android:id="@+id/tvRecipeDetailsInstructions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Instructions"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</ScrollView>
