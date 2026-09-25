@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class AddIngredientActivity extends AppCompatActivity {
+public class EditIngredientActivity extends AppCompatActivity {
 
     private EditText etIngredientName;
     private EditText etQuantity;
@@ -20,23 +20,38 @@ public class AddIngredientActivity extends AppCompatActivity {
 
     private DatabaseHelper databaseHelper;
 
+    private int ingredientId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_add_ingredient);
+        setContentView(R.layout.activity_edit_ingredient);
 
-        // Find views
-        etIngredientName = findViewById(R.id.etIngredientName);
-        etQuantity = findViewById(R.id.etQuantity);
-        etExpiryDate = findViewById(R.id.etExpiryDate);
-        spinnerUnit = findViewById(R.id.spinnerUnit);
-        btnSaveIngredient = findViewById(R.id.btnSaveIngredient);
+        // Connect Java to XML
+        etIngredientName = findViewById(
+                R.id.etIngredientName
+        );
 
-        // Create database helper
+        etQuantity = findViewById(
+                R.id.etQuantity
+        );
+
+        etExpiryDate = findViewById(
+                R.id.etExpiryDate
+        );
+
+        spinnerUnit = findViewById(
+                R.id.spinnerUnit
+        );
+
+        btnSaveIngredient = findViewById(
+                R.id.btnSaveIngredient
+        );
+
         databaseHelper = new DatabaseHelper(this);
 
-        // Units available in the spinner
+        // Units
         String[] units = {
                 "g",
                 "kg",
@@ -48,7 +63,6 @@ public class AddIngredientActivity extends AppCompatActivity {
                 "tsp"
         };
 
-        // Create spinner adapter
         ArrayAdapter<String> unitAdapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_spinner_item,
@@ -61,13 +75,61 @@ public class AddIngredientActivity extends AppCompatActivity {
 
         spinnerUnit.setAdapter(unitAdapter);
 
-        // Save button
-        btnSaveIngredient.setOnClickListener(v -> saveIngredient());
+        // Get ingredient information from MainActivity
+        ingredientId = getIntent().getIntExtra(
+                "ingredient_id",
+                -1
+        );
+
+        String name = getIntent().getStringExtra(
+                "ingredient_name"
+        );
+
+        double quantity = getIntent().getDoubleExtra(
+                "ingredient_quantity",
+                0
+        );
+
+        String unit = getIntent().getStringExtra(
+                "ingredient_unit"
+        );
+
+        String expiryDate = getIntent().getStringExtra(
+                "ingredient_expiry_date"
+        );
+
+        // Put existing information into fields
+        etIngredientName.setText(name);
+
+        etQuantity.setText(
+                String.valueOf(quantity)
+        );
+
+        etExpiryDate.setText(
+                expiryDate
+        );
+
+        // Select the existing unit
+        if (unit != null) {
+
+            for (int i = 0; i < units.length; i++) {
+
+                if (units[i].equals(unit)) {
+
+                    spinnerUnit.setSelection(i);
+                    break;
+                }
+            }
+        }
+
+        // Save changes
+        btnSaveIngredient.setOnClickListener(
+                v -> updateIngredient()
+        );
     }
 
-    private void saveIngredient() {
+    private void updateIngredient() {
 
-        // Get values entered by the user
         String name = etIngredientName.getText()
                 .toString()
                 .trim();
@@ -83,7 +145,7 @@ public class AddIngredientActivity extends AppCompatActivity {
                 .toString()
                 .trim();
 
-        // Validate ingredient name
+        // Validate name
         if (TextUtils.isEmpty(name)) {
 
             etIngredientName.setError(
@@ -107,12 +169,13 @@ public class AddIngredientActivity extends AppCompatActivity {
             return;
         }
 
-        // Convert quantity from String to double
         double quantity;
 
         try {
 
-            quantity = Double.parseDouble(quantityText);
+            quantity = Double.parseDouble(
+                    quantityText
+            );
 
         } catch (NumberFormatException e) {
 
@@ -137,31 +200,31 @@ public class AddIngredientActivity extends AppCompatActivity {
             return;
         }
 
-        // Save ingredient to SQLite database
-        boolean inserted = databaseHelper.addIngredient(
-                name,
-                quantity,
-                unit,
-                expiryDate
-        );
+        // Update database
+        boolean updated =
+                databaseHelper.updateIngredient(
+                        ingredientId,
+                        name,
+                        quantity,
+                        unit,
+                        expiryDate
+                );
 
-        // Check whether the ingredient was saved
-        if (inserted) {
+        if (updated) {
 
             Toast.makeText(
                     this,
-                    "Ingredient added successfully",
+                    "Ingredient updated successfully",
                     Toast.LENGTH_SHORT
             ).show();
 
-            // Return to MainActivity
             finish();
 
         } else {
 
             Toast.makeText(
                     this,
-                    "Failed to add ingredient",
+                    "Failed to update ingredient",
                     Toast.LENGTH_SHORT
             ).show();
         }

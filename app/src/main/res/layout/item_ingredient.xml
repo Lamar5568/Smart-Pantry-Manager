@@ -32,16 +32,24 @@
 
     <ImageButton
         android:id="@+id/btnEditIngredient"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:padding="12dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@android:drawable/ic_menu_edit"
-        android:contentDescription="Edit ingredient" />
+        android:contentDescription="Edit ingredient"
+        android:clickable="true"
+        android:focusable="true" />
 
     <ImageButton
         android:id="@+id/btnDeleteIngredient"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:padding="12dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@android:drawable/ic_menu_delete"
-        android:contentDescription="Delete ingredient" />
+        android:contentDescription="Delete ingredient"
+        android:clickable="true"
+        android:focusable="true" />
 
 </LinearLayout>
