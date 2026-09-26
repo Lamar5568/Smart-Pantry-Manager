@@ -1,5 +1,4 @@
-
-        package com.example.smartpantrymanager;
+package com.example.smartpantrymanager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -40,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         toolbar =
                 findViewById(R.id.toolbar);
 
-        // Visible Menu button inside the toolbar
         btnToolbarMenu =
                 findViewById(R.id.btnToolbarMenu);
 
@@ -234,4 +232,3 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 }
-
